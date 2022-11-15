@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 4033969574738108008}
   - component: {fileID: 50512961935941442}
   - component: {fileID: 266437275433250011}
+  - component: {fileID: 1844684928438310522}
   m_Layer: 0
   m_Name: Enemy_Thief
   m_TagString: Enemy
@@ -182,6 +183,18 @@ PolygonCollider2D:
       - {x: 0.5625, y: 0.65625}
       - {x: 0.5625, y: 0.78125}
       - {x: 0.5, y: 0.84375}
+--- !u!114 &1844684928438310522
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1689866831511430}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 917da66cc43a9474896bde06d0f966a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1324724812226264536
 GameObject:
   m_ObjectHideFlags: 0
@@ -206,7 +219,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1324724812226264536}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2.4099731, y: 2.17, z: 0}
+  m_LocalPosition: {x: -0.5, y: 0.8, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4805181885227780}

@@ -15,8 +15,8 @@ MonoBehaviour:
   enemyImage: {fileID: 4723107735738678597, guid: 0e3502a80399d164ea01f1868f65acbf, type: 3}
   enemyName: Enemy_Boss
   EnemyType: 4
-  hp: 3000
+  hp: 2000
   damage: 500
   attackSpeed: 1.2
-  sightRange: 1
+  sightRange: 2
   moveSpeed: 3

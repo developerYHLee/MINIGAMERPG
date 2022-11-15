@@ -135,7 +135,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4522863467170683840}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.2, y: 0, z: 0}
+  m_LocalPosition: {x: 0.3, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7935889058192970461}
@@ -254,7 +254,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7050892367829573727}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 4.937437, y: -2.191412, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.33333334, y: 0.33333334, z: 1}
   m_Children: []
   m_Father: {fileID: 7935889058192970461}
@@ -348,6 +348,8 @@ GameObject:
   - component: {fileID: 7935889058192970451}
   - component: {fileID: 2890306555649257350}
   - component: {fileID: 6179803211463497055}
+  - component: {fileID: -3853870189743964885}
+  - component: {fileID: 8206483347429974154}
   m_Layer: 0
   m_Name: Enemy_Soldier1
   m_TagString: Enemy
@@ -363,7 +365,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7935889058192970448}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -12.402311, y: 8.744236, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 3, y: 3, z: 1}
   m_Children:
   - {fileID: 7227124864780999801}
@@ -438,7 +440,7 @@ MonoBehaviour:
   _enemyData: {fileID: 11400000, guid: d26112820ef992c4598ed1c59064d43a, type: 2}
   HPBar: {fileID: 6172864345577260373}
   swordPos: {fileID: 6451635642319988819}
-  boxSize: {x: 0.9, y: 1}
+  boxSize: {x: 1.5, y: 0.7}
   _sightCircle: {fileID: 7227124864780999801}
   _sightRange: 3
   _lookRight: 1
@@ -462,7 +464,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 1
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!60 &6179803211463497055
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -524,6 +526,37 @@ PolygonCollider2D:
       - {x: 0.0470289, y: -0.17280807}
       - {x: 0.050840538, y: -0.19991817}
       - {x: 0.09385287, y: -0.19795096}
+--- !u!114 &-3853870189743964885
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7935889058192970448}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 917da66cc43a9474896bde06d0f966a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!95 &8206483347429974154
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7935889058192970448}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 1a6fccfafa57ffd4fa58a55ff8b392d4, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &8008323409815161690
 GameObject:
   m_ObjectHideFlags: 0

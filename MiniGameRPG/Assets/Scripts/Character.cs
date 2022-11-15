@@ -26,13 +26,19 @@ public class Character : MonoBehaviour
 
     Animator _animator;
 
+    //캐릭터 위치, 회전
     Vector2 pos, rot;
+
+    //캐릭터가 죽었을 때 나오는 UI
+    public GameObject _onDeadButton;
+
     public void TakeDamage(int damage)
     {
         HP -= damage;
         _hpSlider.value = HP;
+        Debug.Log("공격 받음! : " + damage);
 
-        if(!IsDead()) _animator.SetTrigger("Hurt");
+        IsDead();
     }
 
     public bool IsDead()
@@ -40,7 +46,11 @@ public class Character : MonoBehaviour
         if (HP <= 0)
         {
             _animator.SetBool("noBlood", true);
-            if(!_animator.GetCurrentAnimatorStateInfo(0).IsName("DeathNoBlood")) _animator.SetTrigger("Death");
+            if (!_animator.GetCurrentAnimatorStateInfo(0).IsName("DeathNoBlood"))
+            {
+                _animator.SetTrigger("Death");
+                OnDead();
+            }
             return true;
         }
 
@@ -49,13 +59,14 @@ public class Character : MonoBehaviour
 
     public void OnDead()
     {
-        _animator.enabled = false;
         GetComponent<MoveCharacter>().enabled = false;
+        
         gameObject.tag = "Untagged";
 
-        //콜라이더 없애기
-        BoxCollider2D[] boxCollider2D = GetComponents<BoxCollider2D>();
-        for (int i = 0; i < 2; i++) boxCollider2D[i].enabled = false;
+        GetComponent<BoxCollider2D>().enabled = false;
+        Damage = 0;
+
+        _onDeadButton.SetActive(true);
     }
 
     public void Attack()
@@ -121,6 +132,10 @@ public class Character : MonoBehaviour
         _mpSlider.value = MP;
 
         _animator = GetComponent<Animator>();
+
+        _onDeadButton.SetActive(false);
+
+        IsDead();
     }
 
     // Update is called once per frame

@@ -248,6 +248,8 @@ GameObject:
   - component: {fileID: 7791192679716578317}
   - component: {fileID: 6778664174753948080}
   - component: {fileID: 5363057730747667523}
+  - component: {fileID: -1589518767569283520}
+  - component: {fileID: 5426052446203456561}
   m_Layer: 0
   m_Name: Enemy_Soldier2
   m_TagString: Enemy
@@ -362,7 +364,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 1
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!60 &5363057730747667523
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -420,6 +422,37 @@ PolygonCollider2D:
       - {x: -0.079343975, y: -0.560164}
       - {x: -0.09546405, y: -0.52243197}
       - {x: -0.07773203, y: -0.34543943}
+--- !u!114 &-1589518767569283520
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7179150193294377495}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 917da66cc43a9474896bde06d0f966a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!95 &5426052446203456561
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7179150193294377495}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: ee05b9fc54e5c8340b4b064c382dc7cd, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &8421821691364012889
 GameObject:
   m_ObjectHideFlags: 0

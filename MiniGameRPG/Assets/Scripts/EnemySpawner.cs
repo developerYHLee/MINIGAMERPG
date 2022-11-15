@@ -29,6 +29,8 @@ public class EnemySpawner : MonoBehaviour
 
     DataController dataController;
 
+    public int _stage;
+
     private void Awake()
     {
         dataController = DataController.Instance;
@@ -37,6 +39,7 @@ public class EnemySpawner : MonoBehaviour
     void Start()
     {
         _pos = gameObject.transform;
+        _stage = DataController.Instance.gameData._stage;
 
         for (int i = 0; i < _enemyPrefabs.Count; i++)
         {
@@ -48,16 +51,16 @@ public class EnemySpawner : MonoBehaviour
 
                 SpawnEnemy(i);
             }
-        }  
+        }
     }
 
     public Enemy SpawnEnemy(int num)
     {
-        var newEnemy = Instantiate(_enemyPrefabs[num], new Vector3(_randomX, _randomY, 0), Quaternion.identity).GetComponent<Enemy>();
+        var newEnemy = Instantiate(_enemyPrefabs[num], new Vector3(_randomX, _randomY, 0), Quaternion.identity, gameObject.transform).GetComponent<Enemy>();
         newEnemy.EnemyData = _enemyDatas[num];
 
         // 적 정보를 적 Dictionary에 쓴다.
-        EnemyGameData enemyGameData = dataController.Write_EnemyData(_enemyDatas[num].Hp, _enemyDatas[num].Damage, _randomX, _randomY, _enemyDatas[num].EnemyType); // 0: 도적, 1: 도적왕, 2: 병사1, 3: 병사2, 4: 왕
+        EnemyGameData enemyGameData = dataController.Write_EnemyData(_enemyDatas[num].Hp - FallScoreScript.CountScore * 10 * (_stage + 1), _enemyDatas[num].Damage - FallScoreScript.CountScore * 3 * (_stage + 1), _randomX, _randomY, _enemyDatas[num].EnemyType); // 0: 도적, 1: 도적왕, 2: 병사1, 3: 병사2, 4: 왕
         newEnemy.SetEnemy(enemyGameData);
 
         return newEnemy;

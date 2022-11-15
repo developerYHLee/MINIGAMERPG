@@ -89,6 +89,18 @@ public class DataController : MonoBehaviour
         string filePath = Application.persistentDataPath + GameDataFileName;
         File.Delete(filePath);
         _gameData = null;
+
+        //적 데이터 지움
+        EnemyGameData.Count = 0;
+        _enemyDictionary.Clear();
+        _spareEnemyId.Clear();
+        _spareEnemyGameData.Clear();
+
+        //점수 현황 지움
+        FallScoreScript.CountScore = 0;
+        FallPotionScript.CountPotion = 0;
+
+
         Debug.Log("삭제 완료");
     }
 
@@ -110,11 +122,13 @@ public class DataController : MonoBehaviour
         string ToJsonData = JsonUtility.ToJson(gameData);
         string filePath = Application.persistentDataPath + GameDataFileName;
         File.WriteAllText(filePath, ToJsonData);
+        
         Debug.Log("캐릭터 저장 완료");
     }
 
     public void SaveEnemy(int id, int hp, int damage, List<float> pos, int type)
     {
+        Debug.Log("Enemy id : " + id);
         EnemyGameData enemyGameData = _enemyDictionary[id];
 
         enemyGameData._hp = hp;
@@ -137,11 +151,15 @@ public class DataController : MonoBehaviour
         string ToJsonData = JsonUtility.ToJson(gameData);
         string filePath = Application.persistentDataPath + GameDataFileName;
         File.WriteAllText(filePath, ToJsonData);
+        
         Debug.Log("적 저장 완료");
     }
 
     public EnemyGameData Write_EnemyData(int hp, int damage, float pos_x, float pos_y, int type) //0: 도적, 1: 도적왕, 2: 병사1, 3: 병사2, 4: 왕
     {
+        //공격력이 1보다 작으면 1로 설정
+        damage = damage < 1 ? 1 : damage;
+        
         EnemyGameData enemyGameData = new EnemyGameData(hp, damage, pos_x, pos_y, type);
 
         //적 Dictionary에 값 저장

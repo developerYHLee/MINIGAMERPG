@@ -383,7 +383,7 @@ GameObject:
   - component: {fileID: 181305624}
   - component: {fileID: 181305623}
   m_Layer: 5
-  m_Name: StartButton
+  m_Name: LoadButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1158,6 +1158,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38fd7a3fdc81d124c87b68fa9fd27503, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _loadData: {fileID: 181305621}
 --- !u!1 &1208362764
 GameObject:
   m_ObjectHideFlags: 0

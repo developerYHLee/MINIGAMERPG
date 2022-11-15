@@ -15,7 +15,7 @@ MonoBehaviour:
   enemyImage: {fileID: 4723107735738678597, guid: 77ba605bbd83f4448bc8683510c3155e, type: 3}
   enemyName: Enemy_Soldier2
   EnemyType: 3
-  hp: 1500
+  hp: 700
   damage: 200
   attackSpeed: 1
   sightRange: 3

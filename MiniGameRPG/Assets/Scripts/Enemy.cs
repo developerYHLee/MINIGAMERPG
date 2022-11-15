@@ -33,10 +33,12 @@ public class Enemy : MonoBehaviour
     public float _sightRange;
 
     GameObject _player;
-    float _attackTimer = 0f, _attackWaitingTime = 1f;
+    float _attackTimer = 0f, _attackWaitingTime = 0.8f;
 
     //바라보는 방향
     public bool _lookRight;
+
+    Vector2 _movement;
 
     void Awake()
     {
@@ -60,20 +62,37 @@ public class Enemy : MonoBehaviour
     {
         float dis = Vector2.Distance(_sightCircle.position, _player.transform.position);
 
-        if (dis <= SightRange && HP > 0)
+        //플레이어와의 거리가 시야 범위에 포함되고, 적과 플레이어가 살아 있을 경우
+        if (dis <= SightRange && HP > 0 && _player.GetComponent<Character>().HP > 0)
         {
             FaceTarget();
 
+            //달리기 애니메이션
             animator.SetInteger("AniState", 1);
-            
+
+            //공격 범위 확인
             Attack();
-            if (dis > Mathf.Abs(1.5f) && !animator.GetCurrentAnimatorStateInfo(0).IsName("Attack")) MoveToTarget();
+
+            if (dis >= 0.5f && !animator.GetCurrentAnimatorStateInfo(0).IsName("Attack")) MoveCharacter(_movement);
         }
         else
         {
             _rig2D.velocity = new Vector2(0, 0);
             animator.SetInteger("AniState", 0);
         }
+    }
+
+    private void Update()
+    {
+        Vector2 direction = _player.transform.position - _sightCircle.position;
+        direction.Normalize();
+        _movement = direction;
+    }
+
+    void MoveCharacter(Vector2 direction)
+    {
+        animator.SetTrigger("Run");
+        _rig2D.MovePosition((Vector2)transform.position + (direction * MoveSpeed * Time.deltaTime));
     }
 
     //남은 체력 반환
@@ -93,6 +112,10 @@ public class Enemy : MonoBehaviour
             animator.SetBool("IsDead", true);
             HPBar.SetActive(false);
             gameObject.GetComponent<PolygonCollider2D>().isTrigger = true;
+
+            //게임 메니저로 한명 죽었음을 알려준다.
+            GameObject.Find("GameManager").GetComponent<GameManager>().DeadEnemy();
+
             return true;
         }
 
@@ -126,44 +149,28 @@ public class Enemy : MonoBehaviour
     {
         Collider2D[] collider2Ds = Physics2D.OverlapBoxAll(swordPos.position, boxSize, 0);
 
-        //데미지 쿨타임
-        _attackTimer += Time.deltaTime;
-        if (_attackTimer >= _attackWaitingTime)
+        //collider에 오버랩 된 collider 중
+        foreach (Collider2D collider in collider2Ds)
         {
-            _attackTimer = 0f;
-
-            //collider에 오버랩 된 collider 중 태그가 Player면 Damage를 준다.
-            foreach (Collider2D collider in collider2Ds)
+            //태그가 Player면 Damage를 준다.
+            if (collider.CompareTag("Player"))
             {
-                if (collider.CompareTag("Player"))
+                //데미지 쿨타임
+                _attackTimer += Time.deltaTime;
+                if (_attackTimer >= _attackWaitingTime)
                 {
-                    //현재 동작하는 애니매이션이 공격중이 아니라면 공격 애니매이션 시작
-                    if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Attack")) animator.SetInteger("AniState", 2);
+                    _attackTimer = 0f;
 
+                    //현재 동작하는 애니매이션이 공격중이 아니라면 공격 애니매이션 시작
+                    if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Attack"))
+                    {
+                        animator.SetTrigger("Attack");
+                        animator.SetInteger("AniState", 2);
+                    }
                     _player.GetComponent<Character>().TakeDamage(Damage);
                 }
             }
         }
-    }
-
-    void MoveToTarget()
-    {
-        float dir_x = _player.transform.position.x - _sightCircle.position.x;
-        float dir_y = _player.transform.position.y - _sightCircle.position.y;
-
-        //플레이어보다 왼쪽에 있으면 -1, 오른쪽에 있으면 1
-        dir_x = dir_x < 0 ? -1 : 1;
-        //플레이어보다 위에 있으면 -1, 아래에 있으면 1
-        dir_y = dir_y < 0 ? -1 : 1;
-
-        _rig2D.AddForce(new Vector2(dir_x, dir_y) * MoveSpeed * Time.deltaTime, ForceMode2D.Impulse);
-
-        //최대속도
-        if (Mathf.Abs(_rig2D.velocity.x) >= MoveSpeed && Mathf.Abs(_rig2D.velocity.y) >= MoveSpeed) _rig2D.velocity = new Vector2(MoveSpeed * dir_x, MoveSpeed * dir_y);
-        //좌우 최대속도
-        else if (Mathf.Abs(_rig2D.velocity.x) >= MoveSpeed) _rig2D.velocity = new Vector2(MoveSpeed * dir_x, _rig2D.velocity.y * dir_y);
-        //상하 최대속도
-        else if (Mathf.Abs(_rig2D.velocity.y) >= MoveSpeed) _rig2D.velocity = new Vector2(_rig2D.velocity.x * dir_x, MoveSpeed * dir_y);
     }
 
     void FaceTarget()

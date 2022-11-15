@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - Enemy
+  - AvoidPoopPlayer
+  - AvoidPoopUI
   layers:
   - Default
   - TransparentFX
@@ -12,10 +14,10 @@ TagManager:
   - 
   - Water
   - UI
+  - Layer1
+  - Layer2
   - Player
   - PlayerDamaged
-  - 
-  - 
   - 
   - 
   - 
@@ -52,8 +54,8 @@ TagManager:
     uniqueID: 3147413335
     locked: 0
   - name: Bridge
-    uniqueID: 3581284327
+    uniqueID: 1656840505
     locked: 0
   - name: UI
-    uniqueID: 1656840505
+    uniqueID: 3660102847
     locked: 0

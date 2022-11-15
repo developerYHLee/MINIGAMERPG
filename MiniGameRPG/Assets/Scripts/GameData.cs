@@ -28,11 +28,13 @@ public class EnemyGameData
 [Serializable]
 public class GameData
 {
-    public int _player_hp, _player_mp, _player_damage, _player_level, _player_maxHp, _player_maxMp;
+    public int _player_hp, _player_mp, _player_damage, _player_level, _player_maxHp, _player_maxMp, _stage, _statUp, _countPotion;
     public List<float> _player_pos, _player_rot;
     public List<int> _enemy_id = new List<int>();
     public List<EnemyGameData> _enemy_enemyGameData = new List<EnemyGameData>();
     public bool _enemyIsSpawned = false;
+    public List<bool> _fieldGateOpen;
+    public List<bool> _miniGameIsCleared;
 
     public GameData()
     {
@@ -48,5 +50,14 @@ public class GameData
 
         _player_rot = new List<float>();
         _player_rot.Add(0); _player_rot.Add(0); //캐릭터 회전 x,y
+
+        _fieldGateOpen = new List<bool>();
+        _miniGameIsCleared = new List<bool>();
+
+        for(int i = 0; i < 7; i++)
+        {
+            _fieldGateOpen.Add(false);
+            _miniGameIsCleared.Add(false);
+        }
     }
 }

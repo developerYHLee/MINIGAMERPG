@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 564587508166156883}
   - component: {fileID: 50959880312528810}
   - component: {fileID: 2096588422456283898}
+  - component: {fileID: 4707768021037997449}
   m_Layer: 0
   m_Name: Enemy_TheifBoss
   m_TagString: Enemy
@@ -183,6 +184,18 @@ PolygonCollider2D:
       - {x: 0.375, y: 0.0625}
       - {x: 0.5625, y: 0.4375}
       - {x: 0.5625, y: 0.90625}
+--- !u!114 &4707768021037997449
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1463392086428580}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 917da66cc43a9474896bde06d0f966a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &620035555613121051
 GameObject:
   m_ObjectHideFlags: 0

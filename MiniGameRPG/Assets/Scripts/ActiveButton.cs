@@ -2,21 +2,27 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using UnityEngine.UI;
 
 public class ActiveButton : MonoBehaviour
 {
+    public GameObject _player;
+    public Text _countPotionText, _healAmountText;
     Animator animator;
     bool isRoll, isStop, isAttack;
     float _rollTimer = 0.0f, _rollWaitingTime = 0.6f;
 
-    Character player;
+    //물약 개수
+    public int _countPotion = 0, _healAmount = 20;
 
     // Start is called before the first frame update
     void Start()
     {
-        animator = gameObject.GetComponent<Animator>();
-        player = gameObject.GetComponent<Character>();
+        animator = _player.GetComponent<Animator>();
         isRoll = false; isStop = false;
+
+        //포션 가져오기
+        _countPotion = DataController.Instance.gameData._countPotion;
     }
 
     // Update is called once per frame
@@ -47,7 +53,7 @@ public class ActiveButton : MonoBehaviour
 
         else if(isAttack)
         {
-            player.Attack();
+            _player.GetComponent<Character>().Attack();
         }
     }
 
@@ -84,7 +90,7 @@ public class ActiveButton : MonoBehaviour
 
             //Attack 초기화
             isAttack = false;
-            player.SetAttackTimer();
+            _player.GetComponent<Character>().SetAttackTimer();
         }
     }
 
@@ -116,5 +122,21 @@ public class ActiveButton : MonoBehaviour
             MoveCharacter.speed = 1;
             MoveCharacter.max_speed = 3;
         }
+    }
+
+    public void Heal()
+    {
+        if (_countPotion > 0)
+        {
+            _countPotionText.text = "" + --_countPotion;
+
+            //데미지를 음수로 받으면 체력이 회복된다.
+            _player.GetComponent<Character>().TakeDamage(-_healAmount);
+        }
+    }
+
+    private void OnApplicationQuit()
+    {
+        DataController.Instance.gameData._countPotion = _countPotion;
     }
 }
