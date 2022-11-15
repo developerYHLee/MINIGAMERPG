@@ -2,10 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class MenuScript : MonoBehaviour
 {
     public GameObject menu_background, resume_background, option_background, _manual, _fieldGate;
+    public GameObject _nextStoryButton;
+    Color _color;
+    float _time = 0f;
 
     // Start is called before the first frame update
     void Start()
@@ -15,12 +19,26 @@ public class MenuScript : MonoBehaviour
         _manual.SetActive(false);
 
         if (DataController.Instance.gameData._fieldGateOpen[0]) _fieldGate.SetActive(false);
+        _color = _nextStoryButton.GetComponent<Image>().color;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        //¹öÆ° ±ôºýÀÌ±â========
+        if (_time < 0.5f)
+        {
+            _color.a = 1 - _time;
+        }
+        else
+        {
+            _color.a = _time;
+            if (_time > 1f) _time = 0;
+        }
+        _nextStoryButton.GetComponent<Image>().color = _color;
+
+        _time += Time.deltaTime;
+        //====================
     }
 
     public void Toggle_Menu()
