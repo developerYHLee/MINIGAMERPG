@@ -86,10 +86,6 @@ public class DataController : MonoBehaviour
 
     public void EraseGameData()
     {
-        string filePath = Application.persistentDataPath + GameDataFileName;
-        File.Delete(filePath);
-        _gameData = null;
-
         //적 데이터 지움
         EnemyGameData.Count = 0;
         _enemyDictionary.Clear();
@@ -100,6 +96,12 @@ public class DataController : MonoBehaviour
         FallScoreScript.CountScore = 0;
         FallPotionScript.CountPotion = 0;
 
+        //스테이지 초기화
+        gameData._stage = 0;
+
+        string filePath = Application.persistentDataPath + GameDataFileName;
+        File.Delete(filePath);
+        _gameData = null;
 
         Debug.Log("삭제 완료");
     }

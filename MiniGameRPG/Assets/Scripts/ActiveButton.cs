@@ -13,7 +13,7 @@ public class ActiveButton : MonoBehaviour
     float _rollTimer = 0.0f, _rollWaitingTime = 0.6f;
 
     //물약 개수
-    public int _countPotion = 0, _healAmount = 20;
+    public int _countPotion = 0, _healAmount = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -23,6 +23,7 @@ public class ActiveButton : MonoBehaviour
 
         //포션 가져오기
         _countPotion = DataController.Instance.gameData._countPotion;
+        _countPotionText.text = "" + _countPotion;
     }
 
     // Update is called once per frame

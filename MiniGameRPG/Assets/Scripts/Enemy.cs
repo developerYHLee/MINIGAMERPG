@@ -33,7 +33,7 @@ public class Enemy : MonoBehaviour
     public float _sightRange;
 
     GameObject _player;
-    float _attackTimer = 0f, _attackWaitingTime = 0.8f;
+    float _attackTimer = 0f, _attackWaitingTime = 0.7f;
 
     //바라보는 방향
     public bool _lookRight;
@@ -67,10 +67,7 @@ public class Enemy : MonoBehaviour
         {
             FaceTarget();
 
-            //공격 범위 확인
-            Attack();
-
-            if (dis >= 1f) MoveCharacter(_movement);
+            if (dis >= 1f && !Attack()) MoveCharacter(_movement);
         }
         else
         {
@@ -87,23 +84,23 @@ public class Enemy : MonoBehaviour
     }
 
     //공격
-    public void Attack()
+    public bool Attack()
     {
         Collider2D[] collider2Ds = Physics2D.OverlapBoxAll(swordPos.position, boxSize, 0);
 
         //collider에 오버랩 된 collider 중
         foreach (Collider2D collider in collider2Ds)
         {
-            //현재 동작하는 애니매이션이 공격중이 아니라면 공격 애니매이션 시작
-            if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Attack"))
-            {
-                animator.SetTrigger("Attack");
-                animator.SetInteger("AniState", 2);
-            }
-
             //태그가 Player면 Damage를 준다.
             if (collider.CompareTag("Player"))
             {
+                //현재 동작하는 애니매이션이 공격중이 아니라면 공격 애니매이션 시작
+                if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Attack"))
+                {
+                    animator.SetTrigger("Attack");
+                    animator.SetInteger("AniState", 2);
+                }
+
                 //데미지 쿨타임
                 _attackTimer += Time.deltaTime;
                 if (_attackTimer >= _attackWaitingTime)
@@ -111,8 +108,12 @@ public class Enemy : MonoBehaviour
                     _attackTimer = 0f;
                     _player.GetComponent<Character>().TakeDamage(Damage);
                 }
+
+                return true;
             }
         }
+
+        return false;
     }
 
     void MoveCharacter(Vector2 direction)
@@ -120,7 +121,7 @@ public class Enemy : MonoBehaviour
         //달리기 애니메이션
         animator.SetInteger("AniState", 1);
         animator.SetTrigger("Run");
-        
+
         _rig2D.MovePosition((Vector2)transform.position + (direction * MoveSpeed * Time.deltaTime));
     }
 
@@ -129,7 +130,7 @@ public class Enemy : MonoBehaviour
     {
         HP -= damage;
         slider.value = HP;
-        Debug.Log("Enemy : " + damage);
+
         isDead(false); //데미지를 받는다는 것은 살아있다는 것을 의미한다.
     }
 
@@ -148,6 +149,9 @@ public class Enemy : MonoBehaviour
 
             return true;
         }
+
+        //적을 불러왔을 때 적이 살아있다면 죽여야 하는 적 수를 늘려준다.
+        if (isStartSpawned) GameObject.Find("GameManager").GetComponent<GameManager>()._hasToKill++;
 
         return false;
     }

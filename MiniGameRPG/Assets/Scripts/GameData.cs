@@ -28,7 +28,7 @@ public class EnemyGameData
 [Serializable]
 public class GameData
 {
-    public int _player_hp, _player_mp, _player_damage, _player_level, _player_maxHp, _player_maxMp, _stage, _statUp, _countPotion;
+    public int _player_hp, _player_mp, _player_damage, _player_level, _player_maxHp, _player_maxMp, _stage, _statUp, _countPotion, _healAmount;
     public List<float> _player_pos, _player_rot;
     public List<int> _enemy_id = new List<int>();
     public List<EnemyGameData> _enemy_enemyGameData = new List<EnemyGameData>();
@@ -62,5 +62,8 @@ public class GameData
 
         _stage = 0;
         _statUp = 0;
+
+        _countPotion = 0;
+        _healAmount = 20;
     }
 }

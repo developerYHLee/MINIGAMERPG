@@ -12,12 +12,19 @@ public class AvoidPoopCanvasScript : MonoBehaviour
 
     GameObject _player;
 
+    ActiveButton activeButton;
+
     private void Start()
     {
         _background.SetActive(false);
         _manual.SetActive(false);
         _startButton.SetActive(false);
         _player = GameObject.Find("Player");
+
+        activeButton = GameObject.Find("JoyStickCanvas").GetComponent<ActiveButton>();
+
+        activeButton._healAmount = DataController.Instance.gameData._healAmount;
+        activeButton._healAmountText.text = "Heal : " + activeButton._healAmount;
     }
 
     public void Toggle_GameStart()
@@ -45,8 +52,14 @@ public class AvoidPoopCanvasScript : MonoBehaviour
 
         //적 생성
         _enemySpawners[_stage].SetActive(true);
-
-        ActiveButton activeButton = GameObject.Find("JoyStickCanvas").GetComponent<ActiveButton>();
+        
+        //자식 객체가 있으면 2, 3 spawner
+        if (_enemySpawners[_stage].transform.childCount > 0)
+        {
+            for (int i = 0; i < _enemySpawners[_stage].transform.childCount; i++)
+                _enemySpawners[_stage].transform.GetChild(i).GetComponent<EnemySpawner>().ReduceSetting(FallScoreScript.CountScore);
+        }
+        else _enemySpawners[_stage].GetComponent<EnemySpawner>().ReduceSetting(FallScoreScript.CountScore);
 
         //물약 개수
         activeButton._countPotion += FallPotionScript.CountPotion;
@@ -54,6 +67,11 @@ public class AvoidPoopCanvasScript : MonoBehaviour
         
         //물약 회복량 
         activeButton._healAmount += 20 * _stage;
+        DataController.Instance.gameData._healAmount = activeButton._healAmount;
         activeButton._healAmountText.text = "Heal : " + activeButton._healAmount;
+
+        //점수 현황 지움
+        FallScoreScript.CountScore = 0;
+        FallPotionScript.CountPotion = 0;
     }
 }

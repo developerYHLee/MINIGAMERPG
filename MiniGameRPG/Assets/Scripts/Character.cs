@@ -34,6 +34,13 @@ public class Character : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
+        if (MAXHP <= HP - Damage)
+        {
+            Debug.Log("최대 체력을 초과할 수 없습니다! : " + MAXHP);
+            HP = MAXHP;
+            return;
+        }
+
         HP -= damage;
         _hpSlider.value = HP;
         Debug.Log("공격 받음! : " + damage);

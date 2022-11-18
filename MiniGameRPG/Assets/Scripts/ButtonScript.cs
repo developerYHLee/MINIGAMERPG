@@ -21,6 +21,7 @@ public class ButtonScript : MonoBehaviour
         _statUp = DataController.Instance.gameData._statUp;
 
         SetStats();
+
         //스텟 올리는 버튼을 활성화 할지 확인
         CheckStatUpButton();
     }
@@ -60,8 +61,10 @@ public class ButtonScript : MonoBehaviour
         _amountTexts[0].text = "" + _character.MAXHP;
         _amountTexts[1].text = "" + _character.MAXMP;
         _amountTexts[2].text = "" + _character.Damage;
+        _amountTexts[3].text = "" + _statUp;
     }
 
+    //스탯 올리기
     public void ChangeStat(int num)
     {
         string text = "";
@@ -93,6 +96,7 @@ public class ButtonScript : MonoBehaviour
         CheckStatUpButton();
     }
 
+    //스탯 포인트 증가
     public void PlusStatUp(int num)
     {
         //스텟 포인트를 올린 후 값 저장
@@ -103,6 +107,7 @@ public class ButtonScript : MonoBehaviour
         CheckStatUpButton();
     }
 
+    //스탯이 있다면 버튼 활성화
     public void CheckStatUpButton()
     {
         bool isEnable = false;
@@ -112,10 +117,16 @@ public class ButtonScript : MonoBehaviour
         {
             _statUpButton[i].GetComponent<Button>().enabled = isEnable;
 
-            if (!isEnable)
+            Color color = _statUpButton[i].GetComponent<Image>().color;
+
+            //활성화 유무에 따른 알파값 변경
+            if (isEnable)
             {
-                //알파 값 변경
-                Color color = _statUpButton[i].GetComponent<Image>().color;
+                color.a = 1f;
+                _statUpButton[i].GetComponent<Image>().color = color;
+            }
+            else
+            {
                 color.a = 0.5f;
                 _statUpButton[i].GetComponent<Image>().color = color;
             }

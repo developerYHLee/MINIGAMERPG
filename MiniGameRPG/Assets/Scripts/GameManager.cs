@@ -30,7 +30,7 @@ public class GameManager : MonoBehaviour
 
     private void OnEnable()
     {
-        Debug.Log("GameManager Enable!");
+        _hasToKill = 0;
     }
 
     // Start is called before the first frame update
