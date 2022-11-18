@@ -9,7 +9,7 @@ public class MenuScript : MonoBehaviour
     public GameObject menu_background, resume_background, option_background, _manual, _fieldGate;
     public GameObject _nextStoryButton;
     Color _color;
-    float _time = 0f;
+    float _time;
 
     // Start is called before the first frame update
     void Start()

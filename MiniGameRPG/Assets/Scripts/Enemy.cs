@@ -67,13 +67,10 @@ public class Enemy : MonoBehaviour
         {
             FaceTarget();
 
-            //달리기 애니메이션
-            animator.SetInteger("AniState", 1);
-
             //공격 범위 확인
             Attack();
 
-            if (dis >= 0.5f && !animator.GetCurrentAnimatorStateInfo(0).IsName("Attack")) MoveCharacter(_movement);
+            if (dis >= 1f) MoveCharacter(_movement);
         }
         else
         {
@@ -89,9 +86,41 @@ public class Enemy : MonoBehaviour
         _movement = direction;
     }
 
+    //공격
+    public void Attack()
+    {
+        Collider2D[] collider2Ds = Physics2D.OverlapBoxAll(swordPos.position, boxSize, 0);
+
+        //collider에 오버랩 된 collider 중
+        foreach (Collider2D collider in collider2Ds)
+        {
+            //현재 동작하는 애니매이션이 공격중이 아니라면 공격 애니매이션 시작
+            if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Attack"))
+            {
+                animator.SetTrigger("Attack");
+                animator.SetInteger("AniState", 2);
+            }
+
+            //태그가 Player면 Damage를 준다.
+            if (collider.CompareTag("Player"))
+            {
+                //데미지 쿨타임
+                _attackTimer += Time.deltaTime;
+                if (_attackTimer >= _attackWaitingTime)
+                {
+                    _attackTimer = 0f;
+                    _player.GetComponent<Character>().TakeDamage(Damage);
+                }
+            }
+        }
+    }
+
     void MoveCharacter(Vector2 direction)
     {
+        //달리기 애니메이션
+        animator.SetInteger("AniState", 1);
         animator.SetTrigger("Run");
+        
         _rig2D.MovePosition((Vector2)transform.position + (direction * MoveSpeed * Time.deltaTime));
     }
 
@@ -100,21 +129,22 @@ public class Enemy : MonoBehaviour
     {
         HP -= damage;
         slider.value = HP;
-
-        isDead();
+        Debug.Log("Enemy : " + damage);
+        isDead(false); //데미지를 받는다는 것은 살아있다는 것을 의미한다.
     }
 
     //죽었으면 true, 살았으면 false
-    public bool isDead()
+    public bool isDead(bool isStartSpawned)
     {
         if (HP <= 0)
         {
             animator.SetBool("IsDead", true);
             HPBar.SetActive(false);
             gameObject.GetComponent<PolygonCollider2D>().isTrigger = true;
+            gameObject.tag = "Untagged";
 
-            //게임 메니저로 한명 죽었음을 알려준다.
-            GameObject.Find("GameManager").GetComponent<GameManager>().DeadEnemy();
+            //게임 메니저로 한명 죽었음을 알려준다. 단, 게임이 시작할 때 죽어있으면 전달하지 않는다.
+            if(!isStartSpawned) GameObject.Find("GameManager").GetComponent<GameManager>().DeadEnemy();
 
             return true;
         }
@@ -131,8 +161,8 @@ public class Enemy : MonoBehaviour
         Debug.Log("적 이동속도 : " + _enemyData.MoveSpeed);
     }
 
-    //적 설정
-    public void SetEnemy(EnemyGameData enemyGameData)
+    //적 설정, isSpawned가 true면 이미 생성된 객체;
+    public void SetEnemy(EnemyGameData enemyGameData, bool isStartSpawned)
     {
         ID = enemyGameData._id;
         HP = enemyGameData._hp;
@@ -141,36 +171,7 @@ public class Enemy : MonoBehaviour
         SightRange = _enemyData.SightRange;
         MoveSpeed = _enemyData.MoveSpeed;
 
-        isDead();
-    }
-
-    //공격
-    public void Attack()
-    {
-        Collider2D[] collider2Ds = Physics2D.OverlapBoxAll(swordPos.position, boxSize, 0);
-
-        //collider에 오버랩 된 collider 중
-        foreach (Collider2D collider in collider2Ds)
-        {
-            //태그가 Player면 Damage를 준다.
-            if (collider.CompareTag("Player"))
-            {
-                //데미지 쿨타임
-                _attackTimer += Time.deltaTime;
-                if (_attackTimer >= _attackWaitingTime)
-                {
-                    _attackTimer = 0f;
-
-                    //현재 동작하는 애니매이션이 공격중이 아니라면 공격 애니매이션 시작
-                    if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Attack"))
-                    {
-                        animator.SetTrigger("Attack");
-                        animator.SetInteger("AniState", 2);
-                    }
-                    _player.GetComponent<Character>().TakeDamage(Damage);
-                }
-            }
-        }
+        isDead(isStartSpawned);
     }
 
     void FaceTarget()

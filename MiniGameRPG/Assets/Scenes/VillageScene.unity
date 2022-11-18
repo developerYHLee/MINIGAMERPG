@@ -7762,7 +7762,7 @@ MonoBehaviour:
   - {fileID: 843186152}
   - {fileID: 1337377982}
   - {fileID: 1739264449}
-  _HasToKill: 0
+  _hasToKill: 0
   _stage: 0
 --- !u!4 &289706654
 Transform:
@@ -85968,7 +85968,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &882659511
 RectTransform:
   m_ObjectHideFlags: 0
@@ -90410,7 +90410,7 @@ TilemapRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1147553961
   m_SortingLayer: 3
-  m_SortingOrder: 1
+  m_SortingOrder: 0
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
   m_MaxChunkCount: 16
@@ -92629,7 +92629,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1894595019}
         m_TargetAssemblyTypeName: MenuScript, Assembly-CSharp
         m_MethodName: CloseManual
         m_Mode: 1
@@ -100288,7 +100288,7 @@ MonoBehaviour:
   option_background: {fileID: 237111022}
   _manual: {fileID: 883141989}
   _fieldGate: {fileID: 215849822}
-  _nextStoryButton: {fileID: 0}
+  _nextStoryButton: {fileID: 1560450037}
 --- !u!114 &1657450258
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -102384,7 +102384,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5554609679177176969, guid: b95acdc3b0c1a444c87723520fbab2f0, type: 3}
       propertyPath: m_SortingOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5554609679177176969, guid: b95acdc3b0c1a444c87723520fbab2f0, type: 3}
       propertyPath: m_SortingLayerID
@@ -102486,6 +102486,10 @@ PrefabInstance:
       propertyPath: m_SortingLayerID
       value: 1656840505
       objectReference: {fileID: 0}
+    - target: {fileID: 6644944589878580094, guid: b95acdc3b0c1a444c87723520fbab2f0, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6644944589913744276, guid: b95acdc3b0c1a444c87723520fbab2f0, type: 3}
       propertyPath: m_SortingLayer
       value: 4
@@ -102498,13 +102502,17 @@ PrefabInstance:
       propertyPath: m_SortingLayerID
       value: 1656840505
       objectReference: {fileID: 0}
+    - target: {fileID: 6644944589913744277, guid: b95acdc3b0c1a444c87723520fbab2f0, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8030785772497820564, guid: b95acdc3b0c1a444c87723520fbab2f0, type: 3}
       propertyPath: m_SortingLayer
       value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 8030785772497820564, guid: b95acdc3b0c1a444c87723520fbab2f0, type: 3}
       propertyPath: m_SortingOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8030785772497820564, guid: b95acdc3b0c1a444c87723520fbab2f0, type: 3}
       propertyPath: m_SortingLayerID

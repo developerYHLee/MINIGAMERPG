@@ -59,5 +59,8 @@ public class GameData
             _fieldGateOpen.Add(false);
             _miniGameIsCleared.Add(false);
         }
+
+        _stage = 0;
+        _statUp = 0;
     }
 }

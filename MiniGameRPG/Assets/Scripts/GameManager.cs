@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour
    public GameObject[] _miniGameSpot, _miniGameGate;
 
     //죽여야 하는 적의 수
-    public int _HasToKill = 0;
+    public int _hasToKill = 0;
 
     public int _stage;
 
@@ -25,7 +25,12 @@ public class GameManager : MonoBehaviour
 
         Enemy enemy = Instantiate(_enemyPrefabs[enemyGameData._type], pos, Quaternion.identity).GetComponent<Enemy>();
         enemy.EnemyData = _enemyData[enemyGameData._type];
-        enemy.SetEnemy(enemyGameData);
+        enemy.SetEnemy(enemyGameData, true); //한번 생성한 후
+    }
+
+    private void OnEnable()
+    {
+        Debug.Log("GameManager Enable!");
     }
 
     // Start is called before the first frame update
@@ -62,11 +67,15 @@ public class GameManager : MonoBehaviour
     //적이 한명 죽을 때마다 실행하도록 한다.
     public void DeadEnemy()
     {
-        if (--_HasToKill <= 0)
+        if (--_hasToKill <= 0)
         {
+            _stage = DataController.Instance.gameData._stage;
+
             _miniGameGate[_stage + 1].SetActive(false);
             _dataController.gameData._fieldGateOpen[_stage + 1] = true;
             _buttonCanvas.GetComponent<ButtonScript>().PlusStatUp(_stage + 1);
+
+            Debug.Log("HasToKill : " + _hasToKill + " Stage : " + (_stage + 1));
         }
     }
 }

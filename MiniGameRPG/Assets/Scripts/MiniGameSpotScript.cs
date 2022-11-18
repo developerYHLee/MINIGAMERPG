@@ -27,7 +27,7 @@ public class MiniGameSpotScript : MonoBehaviour
         FallPotionScript.CountPotion = 0;
 
         //게임 메니저에 죽여야 하는 적 수 전달
-        _gameManager.GetComponent<GameManager>()._HasToKill += _hasToKillNum;
+        _gameManager.GetComponent<GameManager>()._hasToKill += _hasToKillNum;
 
         //스테이지 전달
         _avoidPoopCanvas.GetComponent<AvoidPoopCanvasScript>()._stage = _stage;

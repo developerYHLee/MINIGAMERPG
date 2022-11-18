@@ -61,7 +61,7 @@ public class EnemySpawner : MonoBehaviour
 
         // 적 정보를 적 Dictionary에 쓴다.
         EnemyGameData enemyGameData = dataController.Write_EnemyData(_enemyDatas[num].Hp - FallScoreScript.CountScore * 10 * (_stage + 1), _enemyDatas[num].Damage - FallScoreScript.CountScore * 3 * (_stage + 1), _randomX, _randomY, _enemyDatas[num].EnemyType); // 0: 도적, 1: 도적왕, 2: 병사1, 3: 병사2, 4: 왕
-        newEnemy.SetEnemy(enemyGameData);
+        newEnemy.SetEnemy(enemyGameData, false); //처음 생성 된 경우
 
         return newEnemy;
     }

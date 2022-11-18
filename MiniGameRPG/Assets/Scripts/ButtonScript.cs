@@ -19,6 +19,8 @@ public class ButtonScript : MonoBehaviour
         _character = GameObject.Find("Player").GetComponent<Character>();
 
         _statUp = DataController.Instance.gameData._statUp;
+
+        SetStats();
         //스텟 올리는 버튼을 활성화 할지 확인
         CheckStatUpButton();
     }
@@ -26,7 +28,7 @@ public class ButtonScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public void Toggle_FunctionBackground()
@@ -52,6 +54,13 @@ public class ButtonScript : MonoBehaviour
     {
         _uiList[2].SetActive(!_uiList[2].activeSelf);
     }
+    
+    public void SetStats()
+    {
+        _amountTexts[0].text = "" + _character.MAXHP;
+        _amountTexts[1].text = "" + _character.MAXMP;
+        _amountTexts[2].text = "" + _character.Damage;
+    }
 
     public void ChangeStat(int num)
     {
@@ -60,32 +69,37 @@ public class ButtonScript : MonoBehaviour
         if (num == 0)
         { 
             _character.MAXHP += 100;
+            _character.HP += 100;
             text += _character.MAXHP;
         }
         else if (num == 1)
         { 
             _character.MAXMP += 50;
+            _character.MP += 50;
             text += _character.MAXMP;
         }
         else if (num == 2)
         { 
-            _character.Damage += 20;
+            _character.Damage += 30;
             text += _character.Damage;
         }
 
         _amountTexts[num].text = text;
 
         _statUp--;
+        DataController.Instance.gameData._statUp = _statUp;
         _amountTexts[3].text = "" + _statUp;
+
         CheckStatUpButton();
     }
 
     public void PlusStatUp(int num)
     {
-        //스텟 포인트를 하나 올린 후 값 저장
+        //스텟 포인트를 올린 후 값 저장
         _statUp += num;
         DataController.Instance.gameData._statUp = _statUp;
-        
+        _amountTexts[3].text = "" + _statUp;
+
         CheckStatUpButton();
     }
 
@@ -97,11 +111,14 @@ public class ButtonScript : MonoBehaviour
         for (int i = 0; i < _statUpButton.Length; i++)
         {
             _statUpButton[i].GetComponent<Button>().enabled = isEnable;
-            
-            //알파 값 변경
-            Color color = _statUpButton[i].GetComponent<Image>().color;
-            color.a = 0.5f;
-            _statUpButton[i].GetComponent<Image>().color = color;
+
+            if (!isEnable)
+            {
+                //알파 값 변경
+                Color color = _statUpButton[i].GetComponent<Image>().color;
+                color.a = 0.5f;
+                _statUpButton[i].GetComponent<Image>().color = color;
+            }
         }
     }
 }
