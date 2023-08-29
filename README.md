@@ -31,7 +31,7 @@
 ### ⚡미니 게임
 <img src="https://github.com/developerYHLee/MINIGAMERPG/assets/82407061/5fceffad-03a6-470e-a4fa-6fb6704753ce" width="300" height="200"/>|<img src="https://github.com/developerYHLee/MINIGAMERPG/assets/82407061/1e723d14-b794-4b5e-afee-b4d096c145a3" width="300" height="200"/>
 :-:|:-:
-버튼을 누르면 오른쪽, 누르지 않으면 왼쪽으로 이동|먹은 아이템에 따라 적 능력치 감소, 포션 획득
+버튼을 누르면 오른쪽, 누르지 않으면 왼쪽으로 이동|먹은 아이템에 따라 적 능력치 감소 or 포션 획득
 
 <br></br>
 
