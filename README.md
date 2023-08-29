@@ -58,6 +58,7 @@
 ### 🏆배운 점
 * Json 파일을 활용한 데이터 관리
 * Asset과 Tilemap을 활용한 맵 제작
+* Animator를 활용한 Animation 제작
 * C# Script 등을 활용한 레이어 관리
 * 적 AI 자동화, 랜덤 스폰 등 게임 기능 구현 역량 향상
 * JoyStick 구현 원리(해상도, 방향 벡터 등)
