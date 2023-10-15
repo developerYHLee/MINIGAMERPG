@@ -67,7 +67,7 @@ public class Enemy : MonoBehaviour
         {
             FaceTarget();
 
-            if (dis >= 1f && !Attack()) MoveCharacter(_movement);
+            if (dis >= 0.8f && !Attack()) MoveCharacter(_movement);
         }
         else
         {
@@ -140,13 +140,16 @@ public class Enemy : MonoBehaviour
         if (HP <= 0)
         {
             animator.SetBool("IsDead", true);
+            
             HPBar.SetActive(false);
             gameObject.GetComponent<PolygonCollider2D>().isTrigger = true;
+            gameObject.GetComponent<SpriteRenderer>().sortingOrder = 1;
             gameObject.tag = "Untagged";
 
             //게임 메니저로 한명 죽었음을 알려준다. 단, 게임이 시작할 때 죽어있으면 전달하지 않는다.
             if(!isStartSpawned) GameObject.Find("GameManager").GetComponent<GameManager>().DeadEnemy();
 
+            //StartCoroutine(WaitForIt());
             return true;
         }
 
@@ -154,6 +157,12 @@ public class Enemy : MonoBehaviour
         if (isStartSpawned) GameObject.Find("GameManager").GetComponent<GameManager>()._hasToKill++;
 
         return false;
+    }
+
+    IEnumerator WaitForIt()
+    {
+        yield return new WaitForSeconds(1f);
+        //animator.enabled = false;
     }
 
     public void WatchEnemyInfo()

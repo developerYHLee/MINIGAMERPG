@@ -129,7 +129,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5081735654075047159}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.45, y: 0, z: 0}
+  m_LocalPosition: {x: 0.25, y: -0.1, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_Children: []
   m_Father: {fileID: 788300053093561214}
@@ -340,7 +340,7 @@ MonoBehaviour:
   _enemyData: {fileID: 11400000, guid: 0bb63daaa70014141996b966c3c72b12, type: 2}
   HPBar: {fileID: 8421821691604338645}
   swordPos: {fileID: 6502950825460244626}
-  boxSize: {x: 1.2, y: 1.5}
+  boxSize: {x: 1, y: 1.6}
   _sightCircle: {fileID: 6185151645675456271}
   _sightRange: 4
   _lookRight: 1

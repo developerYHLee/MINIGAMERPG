@@ -44,6 +44,7 @@ public class MenuScript : MonoBehaviour
     public void Toggle_Menu()
     {
         menu_background.SetActive(!menu_background.activeSelf);
+        option_background.SetActive(false);
     }
 
     public void Toggle_Option()

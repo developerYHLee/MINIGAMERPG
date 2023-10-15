@@ -26,6 +26,29 @@ public class EnemyGameData
 }
 
 [Serializable]
+public class GateOn
+{
+    public bool _gameSpotOnLeft, _gameSpotOnRight, _gateOnLeft, _gateOnRight;
+
+    public GateOn()
+    {
+        _gameSpotOnLeft = false;
+        _gameSpotOnRight = false;
+        _gateOnLeft = false;
+        _gateOnRight = false;
+    }
+
+    public void set_gameSpotOnLeft() { _gameSpotOnLeft = true; }
+    public void set_gameSpotOnRight() { _gameSpotOnRight = true; }
+    public bool get_gameSpotOnLeft() { return _gameSpotOnLeft; }
+    public bool get_gameSpotOnRight() { return _gameSpotOnRight; }
+    public void set_gateOnLeft() { _gateOnLeft = true; }
+    public void set_gateOnRight() { _gateOnRight = true; }
+    public bool get_gateOnLeft() { return _gateOnLeft; }
+    public bool get_gateOnRight() { return _gateOnRight; }
+}
+
+[Serializable]
 public class GameData
 {
     public int _player_hp, _player_mp, _player_damage, _player_level, _player_maxHp, _player_maxMp, _stage, _statUp, _countPotion, _healAmount;
@@ -35,6 +58,7 @@ public class GameData
     public bool _enemyIsSpawned = false;
     public List<bool> _fieldGateOpen;
     public List<bool> _miniGameIsCleared;
+    public List<GateOn> _isLeft = new List<GateOn>();
 
     public GameData()
     {
@@ -54,7 +78,7 @@ public class GameData
         _fieldGateOpen = new List<bool>();
         _miniGameIsCleared = new List<bool>();
 
-        for(int i = 0; i < 7; i++)
+        for (int i = 0; i < 7; i++)
         {
             _fieldGateOpen.Add(false);
             _miniGameIsCleared.Add(false);
@@ -65,5 +89,7 @@ public class GameData
 
         _countPotion = 0;
         _healAmount = 20;
+
+        for (int i = 0; i < 2; i++) _isLeft.Add(new GateOn());
     }
 }

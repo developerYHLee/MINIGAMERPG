@@ -60,7 +60,7 @@ public class ActiveButton : MonoBehaviour
 
     public void StartAttackAnimation()
     {
-        if (!isRoll)
+        if (!isRoll && _player.tag != "Untagged")
         {
             animator.SetBool("Stop", false);
             animator.SetTrigger("Attack");
@@ -73,7 +73,7 @@ public class ActiveButton : MonoBehaviour
 
     public void StartBlockAnimation()
     {
-        if (!isRoll)
+        if (!isRoll && _player.tag != "Untagged")
         {
             animator.SetBool("IdleBlock", true);
             animator.SetTrigger("Block");
@@ -98,7 +98,7 @@ public class ActiveButton : MonoBehaviour
 
     public void RollAnimation()
     {
-        if (!isRoll)
+        if (!isRoll && _player.tag != "Untagged")
         {
             isRoll = true;
             animator.SetTrigger("Roll");
@@ -127,7 +127,7 @@ public class ActiveButton : MonoBehaviour
 
     public void Heal()
     {
-        if (_countPotion > 0)
+        if (_countPotion > 0 && _player.tag != "Untagged")
         {
             _countPotionText.text = "" + --_countPotion;
 

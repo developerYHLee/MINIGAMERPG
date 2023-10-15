@@ -81,7 +81,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 564587508166156883, guid: 3248535f6a2562c489a1223a75951ef2, type: 3}
       propertyPath: boxSize.y
-      value: 1.1
+      value: 1.2
       objectReference: {fileID: 0}
     - target: {fileID: 564587508166156883, guid: 3248535f6a2562c489a1223a75951ef2, type: 3}
       propertyPath: HPBarImage
@@ -301,7 +301,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4935615597195973004, guid: 3248535f6a2562c489a1223a75951ef2, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.7
+      value: -0.5
       objectReference: {fileID: 0}
     - target: {fileID: 4935615597195973004, guid: 3248535f6a2562c489a1223a75951ef2, type: 3}
       propertyPath: m_LocalPosition.y

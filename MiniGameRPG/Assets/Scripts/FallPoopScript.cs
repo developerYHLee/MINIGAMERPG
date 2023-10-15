@@ -16,8 +16,6 @@ public class FallPoopScript : FallObjectScript
             int stage = avoidPoopCanvasScript._stage;
 
             GameManager gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
-            //해당되는 단계의 MiniGameSpot을 비활성화 시킨다.
-            gameManager._miniGameSpot[stage].SetActive(false);
 
             //미니게임 수행 유무 저장
             DataController.Instance.gameData._miniGameIsCleared[stage] = true;

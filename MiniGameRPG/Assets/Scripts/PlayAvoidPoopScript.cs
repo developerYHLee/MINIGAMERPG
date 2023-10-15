@@ -11,8 +11,8 @@ public class PlayAvoidPoopScript : MonoBehaviour
     Rigidbody2D _rig2D;
     Animator _animator;
 
-    //오브젝트 낙하속도
-    float _fallSpeed = 0;
+    //플레이어 이동속도
+    float _moveSpeed = 0;
 
     //오브젝트
     private bool[] _check = { true, true, true }; //0 : Poop, 1 : Score, 2 : Potion
@@ -28,6 +28,7 @@ public class PlayAvoidPoopScript : MonoBehaviour
     {
         for (int i = 0; i < _objectsBox.transform.childCount; i++) Destroy(_objectsBox.transform.GetChild(i).gameObject);
         for (int i = 0; i < _check.Length; i++) _check[i] = true;
+        _moveSpeed = 0;
     }
 
     private void Start()
@@ -39,8 +40,9 @@ public class PlayAvoidPoopScript : MonoBehaviour
 
     private void FixedUpdate()
     {
-        _rig2D.AddForce(new Vector2(_fallSpeed * Time.deltaTime, 0), ForceMode2D.Impulse);
-        if (Math.Abs(_rig2D.velocity.x) >= Math.Abs(_fallSpeed)) _rig2D.velocity = new Vector2(_fallSpeed, 0);
+        _rig2D.AddForce(new Vector2(_moveSpeed * Time.deltaTime, 0), ForceMode2D.Impulse);
+        if (Math.Abs(_rig2D.velocity.x) >= Math.Abs(_moveSpeed)) _rig2D.velocity = new Vector2(_moveSpeed, 0);
+        Debug.Log(_moveSpeed);
     }
 
     private void Update()
@@ -70,7 +72,7 @@ public class PlayAvoidPoopScript : MonoBehaviour
     {
         _player.transform.rotation = Quaternion.Euler(new Vector3(0, 180, 0));
         _rig2D.velocity = new Vector2(0, 0);
-        _fallSpeed = -5f;
+        _moveSpeed = -5f;
     }
 
     //버튼이 눌릴 때
@@ -79,6 +81,6 @@ public class PlayAvoidPoopScript : MonoBehaviour
         _animator.SetInteger("AnimState", 1);
         _player.transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
         _rig2D.velocity = new Vector2(0, 0);
-        _fallSpeed = 5f;
+        _moveSpeed = 5f;
     }
 }

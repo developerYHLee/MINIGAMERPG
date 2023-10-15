@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2877821263118742006}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1, y: 0.9, z: 0}
+  m_LocalPosition: {x: 0.7, y: 0.9, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2877821263407722267}
@@ -185,7 +185,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   swordPos: {fileID: 2877821263118742007}
-  boxSize: {x: 0.9, y: 1.2}
+  boxSize: {x: 1.2, y: 1.5}
   _hpBar: {fileID: 0}
   _mpBar: {fileID: 0}
   _onDeadButton: {fileID: 0}

@@ -440,7 +440,7 @@ MonoBehaviour:
   _enemyData: {fileID: 11400000, guid: d26112820ef992c4598ed1c59064d43a, type: 2}
   HPBar: {fileID: 6172864345577260373}
   swordPos: {fileID: 6451635642319988819}
-  boxSize: {x: 1.5, y: 0.7}
+  boxSize: {x: 1.5, y: 1}
   _sightCircle: {fileID: 7227124864780999801}
   _sightRange: 3
   _lookRight: 1
