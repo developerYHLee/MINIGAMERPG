@@ -41,11 +41,18 @@ public class Character : MonoBehaviour
             return;
         }
 
-        HP -= damage;
+        if(!_animator.GetCurrentAnimatorStateInfo(0).IsName("Idle Block")) HP -= damage;
         _hpSlider.value = HP;
-        Debug.Log("공격 받음! : " + damage);
+        Debug.Log("공격 받음!");
+        Debug.Log("현재 체력 : " + HP);
 
         IsDead();
+    }
+
+    public void UseMP(int amount)
+    {
+        MP -= amount;
+        _mpSlider.value = MP;
     }
 
     public bool IsDead()

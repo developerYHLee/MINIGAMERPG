@@ -9,8 +9,8 @@ public class ActiveButton : MonoBehaviour
     public GameObject _player;
     public Text _countPotionText, _healAmountText;
     Animator animator;
-    bool isRoll, isStop, isAttack;
-    float _rollTimer = 0.0f, _rollWaitingTime = 0.6f;
+    bool isRoll, isStop, isAttack, _mpUse;
+    float _rollTimer = 0.0f, _rollWaitingTime = 0.6f, _mpUseTimer = 0f;
 
     //물약 개수
     public int _countPotion = 0, _healAmount = 0;
@@ -19,7 +19,7 @@ public class ActiveButton : MonoBehaviour
     void Start()
     {
         animator = _player.GetComponent<Animator>();
-        isRoll = false; isStop = false;
+        isRoll = false; isStop = false; _mpUse = false;
 
         //포션 가져오기
         _countPotion = DataController.Instance.gameData._countPotion;
@@ -56,6 +56,17 @@ public class ActiveButton : MonoBehaviour
         {
             _player.GetComponent<Character>().Attack();
         }
+
+        if (_mpUse)
+        {
+            _mpUseTimer += Time.deltaTime;
+
+            if (_mpUseTimer >= 1f)
+            {
+                _mpUseTimer = 0f;
+                _player.GetComponent<Character>().UseMP(1);
+            }
+        }
     }
 
     public void StartAttackAnimation()
@@ -73,7 +84,8 @@ public class ActiveButton : MonoBehaviour
 
     public void StartBlockAnimation()
     {
-        if (!isRoll && _player.tag != "Untagged")
+       UseMP();
+       if (!isRoll && _player.tag != "Untagged" && _player.GetComponent<Character>().MP > 0)
         {
             animator.SetBool("IdleBlock", true);
             animator.SetTrigger("Block");
@@ -85,6 +97,9 @@ public class ActiveButton : MonoBehaviour
 
     public void StopAnimation()
     {
+        _mpUse = false;
+        _mpUseTimer = 0f;
+
         if (!isRoll)
         {
             isStop = true;
@@ -109,7 +124,8 @@ public class ActiveButton : MonoBehaviour
 
     public void StartDash()
     {
-        if (!isRoll)
+        UseMP();
+        if (!isRoll && _player.GetComponent<Character>().MP > 0)
         {
             MoveCharacter.speed = 4;
             MoveCharacter.max_speed = 5;
@@ -118,6 +134,9 @@ public class ActiveButton : MonoBehaviour
 
     public void StopDash()
     {
+        _mpUse = false;
+        _mpUseTimer = 0f;
+
         if (!isRoll)
         {
             MoveCharacter.speed = 1;
@@ -134,6 +153,12 @@ public class ActiveButton : MonoBehaviour
             //데미지를 음수로 받으면 체력이 회복된다.
             _player.GetComponent<Character>().TakeDamage(-_healAmount);
         }
+    }
+
+    void UseMP()
+    {
+        _mpUse = true;
+        _player.GetComponent<Character>().UseMP(1);
     }
 
     private void OnApplicationQuit()

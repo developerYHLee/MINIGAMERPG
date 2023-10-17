@@ -61,7 +61,6 @@ public class AvoidPoopCanvasScript : MonoBehaviour
                 _enemySpawners[_stage].transform.GetChild(0).GetComponent<EnemySpawner>().ReduceSetting(FallScoreScript.CountScore);
                 
                 DataController.Instance.gameData._isLeft[_stage - 1].set_gameSpotOnLeft();
-                GameObject.Find("GameManager").GetComponent<GameManager>()._openLeftGate = true;
 
                 _miniGameSpot[_stage].transform.GetChild(0).gameObject.SetActive(false);
                 _miniGameGate[_stage].transform.GetChild(0).gameObject.SetActive(false);
@@ -74,7 +73,6 @@ public class AvoidPoopCanvasScript : MonoBehaviour
                 _enemySpawners[_stage].transform.GetChild(1).GetComponent<EnemySpawner>().ReduceSetting(FallScoreScript.CountScore);
                 
                 DataController.Instance.gameData._isLeft[_stage - 1].set_gameSpotOnRight();
-                GameObject.Find("GameManager").GetComponent<GameManager>()._openRightGate = true;
 
                 _miniGameSpot[_stage].transform.GetChild(1).gameObject.SetActive(false);
                 _miniGameGate[_stage].transform.GetChild(1).gameObject.SetActive(false);

@@ -18,5 +18,5 @@ MonoBehaviour:
   hp: 200
   damage: 30
   attackSpeed: 1.5
-  sightRange: 6
-  moveSpeed: 3
+  sightRange: 8
+  moveSpeed: 3.7

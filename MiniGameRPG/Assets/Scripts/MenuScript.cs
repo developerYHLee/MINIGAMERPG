@@ -8,6 +8,7 @@ public class MenuScript : MonoBehaviour
 {
     public GameObject menu_background, resume_background, option_background, _manual, _fieldGate;
     public GameObject _nextStoryButton;
+    public Text _hasToKill;
     Color _color;
     float _time;
 
@@ -39,6 +40,8 @@ public class MenuScript : MonoBehaviour
 
         _time += Time.deltaTime;
         //====================
+
+        _hasToKill.text = "³²Àº Àû : " + GameObject.Find("GameManager").GetComponent<GameManager>()._hasToKill;
     }
 
     public void Toggle_Menu()
@@ -87,5 +90,6 @@ public class MenuScript : MonoBehaviour
     public void Quit()
     {
         Application.Quit();
+        DataController.Instance.SaveGameData();
     }
 }

@@ -38,11 +38,14 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Debug.Log("GameManager Start!");
+
         _dataController = DataController.Instance;
         _buttonCanvas = GameObject.Find("ButtonCanvas");
         _stage = DataController.Instance.gameData._stage;
         _isLeft = DataController.Instance.gameData._isLeft;
 
+        Debug.Log("로드 되기 전 죽여야 하는 적의 수 : " + _hasToKill);
         if (_dataController.gameData._enemyIsSpawned)
         {
             Debug.Log("적을 불러옴");
@@ -52,6 +55,7 @@ public class GameManager : MonoBehaviour
                 LoadEnemy(i);
             }
         }
+        Debug.Log("로드 된 후 죽여야 하는 적의 수 : " + _hasToKill);
 
         //미니게임을 했으면, 해당 장소의 미니게임을 비활성화 시킨다.
         for (int i = 0; i < _dataController.gameData._miniGameIsCleared.Count; i++)
@@ -116,7 +120,7 @@ public class GameManager : MonoBehaviour
             _dataController.gameData._fieldGateOpen[_stage + 1] = true;
             _buttonCanvas.GetComponent<ButtonScript>().PlusStatUp(_stage + 1);
 
-            Debug.Log("HasToKill : " + _hasToKill + " Stage : " + (_stage + 1));
+            Debug.Log("HasToKill : " + _hasToKill + " Stage Index : " + (_stage + 1));
         }
     }
 }

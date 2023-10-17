@@ -63,9 +63,9 @@ public class GameData
     public GameData()
     {
         _player_maxHp = 100;
-        _player_maxMp = 50;
+        _player_maxMp = 10;
         _player_hp = 100;
-        _player_mp = 50;
+        _player_mp = 10;
         _player_damage = 20;
         _player_level = 1;
 

@@ -77,8 +77,8 @@ public class ButtonScript : MonoBehaviour
         }
         else if (num == 1)
         { 
-            _character.MAXMP += 50;
-            _character.MP += 50;
+            _character.MAXMP += 10;
+            _character.MP += 10;
             text += _character.MAXMP;
         }
         else if (num == 2)
