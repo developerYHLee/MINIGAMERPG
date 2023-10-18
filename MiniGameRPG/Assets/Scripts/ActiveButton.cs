@@ -9,7 +9,7 @@ public class ActiveButton : MonoBehaviour
     public GameObject _player;
     public Text _countPotionText, _healAmountText;
     Animator animator;
-    bool isRoll, isStop, isAttack, _mpUse;
+    bool isRoll, isStop, isAttack;
     float _rollTimer = 0.0f, _rollWaitingTime = 0.6f, _mpUseTimer = 0f;
 
     //물약 개수
@@ -19,7 +19,7 @@ public class ActiveButton : MonoBehaviour
     void Start()
     {
         animator = _player.GetComponent<Animator>();
-        isRoll = false; isStop = false; _mpUse = false;
+        isRoll = false; isStop = false;
 
         //포션 가져오기
         _countPotion = DataController.Instance.gameData._countPotion;
@@ -57,7 +57,7 @@ public class ActiveButton : MonoBehaviour
             _player.GetComponent<Character>().Attack();
         }
 
-        if (_mpUse)
+        if (_player.GetComponent<Character>()._isUsingMP)
         {
             _mpUseTimer += Time.deltaTime;
 
@@ -97,7 +97,8 @@ public class ActiveButton : MonoBehaviour
 
     public void StopAnimation()
     {
-        _mpUse = false;
+        _player.GetComponent<Character>()._mpTimer = 1f;
+        _player.GetComponent<Character>()._isUsingMP = false;
         _mpUseTimer = 0f;
 
         if (!isRoll)
@@ -134,7 +135,8 @@ public class ActiveButton : MonoBehaviour
 
     public void StopDash()
     {
-        _mpUse = false;
+        _player.GetComponent<Character>()._mpTimer = 1f;
+        _player.GetComponent<Character>()._isUsingMP = false;
         _mpUseTimer = 0f;
 
         if (!isRoll)
@@ -157,7 +159,7 @@ public class ActiveButton : MonoBehaviour
 
     void UseMP()
     {
-        _mpUse = true;
+        _player.GetComponent<Character>()._isUsingMP = true;
         _player.GetComponent<Character>().UseMP(1);
     }
 

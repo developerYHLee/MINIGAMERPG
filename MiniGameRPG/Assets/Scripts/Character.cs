@@ -32,6 +32,9 @@ public class Character : MonoBehaviour
     //캐릭터가 죽었을 때 나오는 UI
     public GameObject _onDeadButton;
 
+    public bool _isUsingMP = false;
+    public float _mpTimer = 1f;
+
     public void TakeDamage(int damage)
     {
         if (MAXHP <= HP - Damage)
@@ -52,7 +55,9 @@ public class Character : MonoBehaviour
     public void UseMP(int amount)
     {
         MP -= amount;
-        _mpSlider.value = MP;
+        if (MP > MAXMP) MP = MAXMP;
+
+        _mpSlider.value = MP;       
     }
 
     public bool IsDead()
@@ -155,7 +160,17 @@ public class Character : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (!_isUsingMP)
+        {
+            _mpTimer -= Time.deltaTime;
+
+            if (_mpTimer <= 0)
+            {
+                _mpTimer = 1f;
+
+                UseMP(-1);
+            }
+        }
     }
 
     //공격범위를 보이게 함

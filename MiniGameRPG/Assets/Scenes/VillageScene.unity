@@ -100353,6 +100353,8 @@ MonoBehaviour:
   _hpBar: {fileID: 2010522252}
   _mpBar: {fileID: 1541329195}
   _onDeadButton: {fileID: 166755296}
+  _isUsingMP: 0
+  _mpTimer: 1
 --- !u!1001 &1619434858
 PrefabInstance:
   m_ObjectHideFlags: 0
