@@ -135,7 +135,7 @@ public class Enemy : MonoBehaviour
     }
 
     //죽었으면 true, 살았으면 false
-    public bool isDead(bool isStartSpawned)
+    public bool isDead(bool isLoadSpawned)
     {
         if (HP <= 0)
         {
@@ -147,22 +147,15 @@ public class Enemy : MonoBehaviour
             gameObject.tag = "Untagged";
 
             //게임 메니저로 한명 죽었음을 알려준다. 단, 게임이 시작할 때 죽어있으면 전달하지 않는다.
-            if(!isStartSpawned) GameObject.Find("GameManager").GetComponent<GameManager>().DeadEnemy();
+            if(!isLoadSpawned) GameObject.Find("GameManager").GetComponent<GameManager>().DeadEnemy();
 
-            //StartCoroutine(WaitForIt());
             return true;
         }
 
         //적을 불러왔을 때 적이 살아있다면 죽여야 하는 적 수를 늘려준다.
-        if (isStartSpawned) GameObject.Find("GameManager").GetComponent<GameManager>()._hasToKill++;
+        if (isLoadSpawned) GameObject.Find("GameManager").GetComponent<GameManager>()._hasToKill++;
 
         return false;
-    }
-
-    IEnumerator WaitForIt()
-    {
-        yield return new WaitForSeconds(1f);
-        //animator.enabled = false;
     }
 
     public void WatchEnemyInfo()
@@ -175,7 +168,7 @@ public class Enemy : MonoBehaviour
     }
 
     //적 설정, isSpawned가 true면 이미 생성된 객체;
-    public void SetEnemy(EnemyGameData enemyGameData, bool isStartSpawned)
+    public void SetEnemy(EnemyGameData enemyGameData, bool isLoadSpawned)
     {
         ID = enemyGameData._id;
         HP = enemyGameData._hp;
@@ -184,7 +177,7 @@ public class Enemy : MonoBehaviour
         SightRange = _enemyData.SightRange;
         MoveSpeed = _enemyData.MoveSpeed;
 
-        isDead(isStartSpawned);
+        isDead(isLoadSpawned);
     }
 
     void FaceTarget()

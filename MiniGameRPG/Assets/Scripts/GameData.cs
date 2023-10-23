@@ -91,5 +91,7 @@ public class GameData
         _healAmount = 20;
 
         for (int i = 0; i < 2; i++) _isLeft.Add(new GateOn());
+
+        _enemyIsSpawned = false;
     }
 }
