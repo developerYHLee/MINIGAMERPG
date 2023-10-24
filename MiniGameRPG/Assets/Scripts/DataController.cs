@@ -177,6 +177,7 @@ public class DataController : MonoBehaviour
 
     private void OnApplicationQuit()
     {
-        SaveGameData();
+        string filePath = Application.persistentDataPath + GameDataFileName;
+        if (File.Exists(filePath)) SaveGameData();
     }
 }

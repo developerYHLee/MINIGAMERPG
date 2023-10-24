@@ -53,6 +53,7 @@ public class MenuScript : MonoBehaviour
     public void Toggle_Option()
     {
         option_background.SetActive(!option_background.activeSelf);
+        menu_background.SetActive(!menu_background.activeSelf);
     }
 
     public void ResumeGame()

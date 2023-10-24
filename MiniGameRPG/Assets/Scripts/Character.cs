@@ -54,9 +54,12 @@ public class Character : MonoBehaviour
 
     public void UseMP(int amount)
     {
-        if (MP > 0) MP -= amount;
+        MP -= amount;
+
+        if (MP < 0) MP = 0;
         if (MP > MAXMP) MP = MAXMP;
 
+        Debug.Log("³²Àº MP : " + MP);
         _mpSlider.value = MP;       
     }
 

@@ -66,6 +66,8 @@ public class ActiveButton : MonoBehaviour
                 _mpUseTimer = 0f;
                 _player.GetComponent<Character>().UseMP(1);
             }
+
+            if (_player.GetComponent<Character>().MP <= 0) StopAction();
         }
     }
 
@@ -84,7 +86,6 @@ public class ActiveButton : MonoBehaviour
 
     public void StartBlockAnimation()
     {
-       UseMP();
        if (!isRoll && _player.tag != "Untagged" && _player.GetComponent<Character>().MP > 0)
         {
             animator.SetBool("IdleBlock", true);
@@ -93,9 +94,10 @@ public class ActiveButton : MonoBehaviour
             MoveCharacter.speed = 1;
             MoveCharacter.max_speed = 2;
         }
+        UseMP();
     }
 
-    public void StopAnimation()
+    public void StopAction()
     {
         _player.GetComponent<Character>()._mpTimer = 1f;
         _player.GetComponent<Character>()._isUsingMP = false;
@@ -108,6 +110,9 @@ public class ActiveButton : MonoBehaviour
             //Attack √ ±‚»≠
             isAttack = false;
             _player.GetComponent<Character>().SetAttackTimer();
+
+            MoveCharacter.speed = 1;
+            MoveCharacter.max_speed = 3;
         }
     }
 
@@ -125,25 +130,12 @@ public class ActiveButton : MonoBehaviour
 
     public void StartDash()
     {
-        UseMP();
         if (!isRoll && _player.GetComponent<Character>().MP > 0)
         {
             MoveCharacter.speed = 4;
             MoveCharacter.max_speed = 5;
         }
-    }
-
-    public void StopDash()
-    {
-        _player.GetComponent<Character>()._mpTimer = 1f;
-        _player.GetComponent<Character>()._isUsingMP = false;
-        _mpUseTimer = 0f;
-
-        if (!isRoll)
-        {
-            MoveCharacter.speed = 1;
-            MoveCharacter.max_speed = 3;
-        }
+        UseMP();
     }
 
     public void Heal()
