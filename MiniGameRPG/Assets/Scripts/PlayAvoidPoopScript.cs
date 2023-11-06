@@ -62,6 +62,7 @@ public class PlayAvoidPoopScript : MonoBehaviour
 
         _check[num] = false;
         GameObject obj = Instantiate(_objects[num], new Vector2(0, 0), Quaternion.identity, _objectsBox.transform);
+        //if (num == 0) obj.transform.Rotate(180, 0, 0);
         obj.GetComponent<RectTransform>().localPosition = new Vector2(ran, 500);
         yield return new WaitForSeconds(num * 2.3f + 0.2f);
         _check[num] = true;

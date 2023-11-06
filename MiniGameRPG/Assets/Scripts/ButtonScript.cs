@@ -70,15 +70,13 @@ public class ButtonScript : MonoBehaviour
         string text = "";
 
         if (num == 0)
-        { 
-            _character.MAXHP += 100;
-            _character.TakeDamage(-100);
+        {
+            _character.HP_StatUP();
             text += _character.MAXHP;
         }
         else if (num == 1)
-        { 
-            _character.MAXMP += 10;
-            _character.UseMP(-10);
+        {
+            _character.MP_StatUP();
             text += _character.MAXMP;
         }
         else if (num == 2)

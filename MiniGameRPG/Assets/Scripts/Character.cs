@@ -39,7 +39,6 @@ public class Character : MonoBehaviour
     {
         if (MAXHP <= HP - Damage)
         {
-            Debug.Log("최대 체력을 초과할 수 없습니다! : " + MAXHP);
             HP = MAXHP;
             return;
         }
@@ -59,8 +58,25 @@ public class Character : MonoBehaviour
         if (MP < 0) MP = 0;
         if (MP > MAXMP) MP = MAXMP;
 
-        Debug.Log("남은 MP : " + MP);
         _mpSlider.value = MP;       
+    }
+
+    public void HP_StatUP()
+    {
+        HP += 100;
+        MAXHP += 100;
+
+        _hpSlider.maxValue = MAXHP;
+        _hpSlider.value = HP;
+    }
+
+    public void MP_StatUP()
+    {
+        MP += 10;
+        MAXMP += 10;
+
+        _mpSlider.maxValue = MAXMP;
+        _mpSlider.value = MP;
     }
 
     public bool IsDead()
@@ -104,9 +120,9 @@ public class Character : MonoBehaviour
             //collider에 오버랩 된 collider 중 태그가 Enemy면 Damage를 준다.
             foreach (Collider2D collider in collider2Ds)
             {
-                if (collider.gameObject.CompareTag("Enemy"))
+                if (collider.gameObject.CompareTag("EnemyHit"))
                 {
-                    collider.GetComponent<Enemy>().TakeDamage(Damage);
+                    collider.transform.parent.GetComponent<Enemy>().TakeDamage(Damage);
                     //_enemy = collider.GetComponent<Enemy>();
                 }
             }

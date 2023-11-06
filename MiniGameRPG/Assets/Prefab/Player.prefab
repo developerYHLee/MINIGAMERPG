@@ -189,6 +189,8 @@ MonoBehaviour:
   _hpBar: {fileID: 0}
   _mpBar: {fileID: 0}
   _onDeadButton: {fileID: 0}
+  _isUsingMP: 0
+  _mpTimer: 1
 --- !u!114 &2133529200056984174
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -214,7 +216,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.029230118, y: 0.0073075294}
+  m_Offset: {x: -0.029230118, y: 0.11694622}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0}
@@ -225,7 +227,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.46654892, y: 0.978076}
+  m_Size: {x: 0.46654892, y: 0.088064194}
   m_EdgeRadius: 0
 --- !u!1 &3717979636708695132
 GameObject:
@@ -271,7 +273,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.061270714, y: 0.14288959}
+  m_Offset: {x: 0.016124964, y: 0.007454872}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0}
@@ -282,5 +284,5 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.3776846, y: 0.1357792}
+  m_Size: {x: 0.2873931, y: 0.81941795}
   m_EdgeRadius: 0

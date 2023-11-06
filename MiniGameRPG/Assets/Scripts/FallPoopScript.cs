@@ -28,7 +28,7 @@ public class FallPoopScript : FallObjectScript
             avoidPoopCanvasScript._resultDecreaseHpText.text = "적 HP " + FallScoreScript.CountScore * 10 * (stage + 1) + " 감소";
             avoidPoopCanvasScript._resultDecreaseDamageText.text = "적 Damage " + FallScoreScript.CountScore * 3  * (stage + 1) + " 감소";
 
-            Debug.Log("똥피하기 종료");
+            Debug.Log("검피하기 종료");
         }
     }
 }

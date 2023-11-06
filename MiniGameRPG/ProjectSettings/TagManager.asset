@@ -7,6 +7,7 @@ TagManager:
   - Enemy
   - AvoidPoopPlayer
   - AvoidPoopUI
+  - EnemyHit
   layers:
   - Default
   - TransparentFX
@@ -18,8 +19,8 @@ TagManager:
   - Layer2
   - Player
   - PlayerDamaged
-  - 
-  - 
+  - Enemy
+  - EnemyBox
   - 
   - 
   - 

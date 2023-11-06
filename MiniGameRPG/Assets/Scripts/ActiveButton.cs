@@ -132,8 +132,8 @@ public class ActiveButton : MonoBehaviour
     {
         if (!isRoll && _player.GetComponent<Character>().MP > 0)
         {
-            MoveCharacter.speed = 4;
-            MoveCharacter.max_speed = 5;
+            MoveCharacter.speed = 5;
+            MoveCharacter.max_speed = 6;
         }
         UseMP();
     }

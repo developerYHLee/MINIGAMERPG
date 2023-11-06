@@ -42,6 +42,8 @@ public class Enemy : MonoBehaviour
 
     void Awake()
     {
+        Debug.Log(GetComponentsInChildren<BoxCollider2D>()[0].name);
+        Physics2D.IgnoreCollision(GetComponentsInChildren<BoxCollider2D>()[0], GetComponentsInChildren<BoxCollider2D>()[1]);
         slider = HPBar.GetComponent<Slider>();
         animator = gameObject.GetComponent<Animator>();
         dataController = DataController.Instance;
@@ -66,11 +68,11 @@ public class Enemy : MonoBehaviour
         if (dis <= SightRange && HP > 0 && _player.GetComponent<Character>().HP > 0)
         {
             FaceTarget();
-
-            if (dis >= 0.8f && !Attack()) MoveCharacter(_movement);
+            Attack();
         }
         else
         {
+            _attackTimer = 0f;
             _rig2D.velocity = new Vector2(0, 0);
             animator.SetInteger("AniState", 0);
         }
@@ -78,42 +80,44 @@ public class Enemy : MonoBehaviour
 
     private void Update()
     {
+        //플레이어 방향으로 단위 벡터
         Vector2 direction = _player.transform.position - _sightCircle.position;
         direction.Normalize();
         _movement = direction;
     }
 
     //공격
-    public bool Attack()
+    public void Attack()
     {
         Collider2D[] collider2Ds = Physics2D.OverlapBoxAll(swordPos.position, boxSize, 0);
+        bool find_player = false;
 
         //collider에 오버랩 된 collider 중
         foreach (Collider2D collider in collider2Ds)
         {
             //태그가 Player면 Damage를 준다.
-            if (collider.CompareTag("Player"))
-            {
-                //현재 동작하는 애니매이션이 공격중이 아니라면 공격 애니매이션 시작
-                if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Attack"))
-                {
-                    animator.SetTrigger("Attack");
-                    animator.SetInteger("AniState", 2);
-                }
-
-                //데미지 쿨타임
-                _attackTimer += Time.deltaTime;
-                if (_attackTimer >= _attackWaitingTime)
-                {
-                    _attackTimer = 0f;
-                    _player.GetComponent<Character>().TakeDamage(Damage);
-                }
-
-                return true;
-            }
+            if (collider.CompareTag("Player")) find_player = true;
         }
 
-        return false;
+        if(find_player)
+        {
+            //현재 동작하는 애니매이션이 공격중이 아니라면 공격 애니매이션 시작
+            if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Attack"))
+            {
+                _attackTimer = 0f;
+                animator.SetTrigger("Attack");
+                animator.SetInteger("AniState", 2);
+            }
+
+            _attackTimer += Time.deltaTime;
+            //데미지 쿨타임
+            if (_attackTimer >= _attackWaitingTime)
+            {
+                _attackTimer = 0f;
+                _player.GetComponent<Character>().TakeDamage(Damage);
+            }
+        }
+        else MoveCharacter(_movement);
     }
 
     void MoveCharacter(Vector2 direction)
@@ -121,6 +125,8 @@ public class Enemy : MonoBehaviour
         //달리기 애니메이션
         animator.SetInteger("AniState", 1);
         animator.SetTrigger("Run");
+
+        if (animator.GetCurrentAnimatorStateInfo(0).IsName("Attack")) return;
 
         _rig2D.MovePosition((Vector2)transform.position + (direction * MoveSpeed * Time.deltaTime));
     }
@@ -142,8 +148,10 @@ public class Enemy : MonoBehaviour
             animator.SetBool("IsDead", true);
             
             HPBar.SetActive(false);
-            gameObject.GetComponent<PolygonCollider2D>().isTrigger = true;
+            gameObject.GetComponent<BoxCollider2D>().isTrigger = true;
             gameObject.GetComponent<SpriteRenderer>().sortingOrder = 1;
+            gameObject.transform.Find("KinematicBox").gameObject.SetActive(false);
+            gameObject.transform.Find("EnemyHitBox").gameObject.SetActive(false);
             gameObject.tag = "Untagged";
 
             //게임 메니저로 한명 죽었음을 알려준다. 단, 게임이 시작할 때 죽어있으면 전달하지 않는다.

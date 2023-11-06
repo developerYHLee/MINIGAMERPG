@@ -19,4 +19,4 @@ MonoBehaviour:
   damage: 20
   attackSpeed: 1.1
   sightRange: 7
-  moveSpeed: 3
+  moveSpeed: 4
