@@ -42,7 +42,6 @@ public class PlayAvoidPoopScript : MonoBehaviour
     {
         _rig2D.AddForce(new Vector2(_moveSpeed * Time.deltaTime, 0), ForceMode2D.Impulse);
         if (Math.Abs(_rig2D.velocity.x) >= Math.Abs(_moveSpeed)) _rig2D.velocity = new Vector2(_moveSpeed, 0);
-        Debug.Log(_moveSpeed);
     }
 
     private void Update()

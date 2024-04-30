@@ -30,7 +30,7 @@ public class DataController : MonoBehaviour
 
     public string GameDataFileName = "Savefile.json"; //이름, 절대 변경 X
 
-    public GameData _gameData;
+    private GameData _gameData;
     public GameData gameData
     {
         get
@@ -91,13 +91,6 @@ public class DataController : MonoBehaviour
         _enemyDictionary.Clear();
         _spareEnemyId.Clear();
         _spareEnemyGameData.Clear();
-
-        //점수 현황 지움
-        FallScoreScript.CountScore = 0;
-        FallPotionScript.CountPotion = 0;
-
-        //스테이지 초기화
-        gameData._stage = 0;
 
         string filePath = Application.persistentDataPath + GameDataFileName;
         File.Delete(filePath);

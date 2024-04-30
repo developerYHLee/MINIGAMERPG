@@ -62,7 +62,7 @@ public class AvoidPoopCanvasScript : MonoBehaviour
                 
                 DataController.Instance.gameData._isLeft[_stage - 1].set_gameSpotOnLeft();
 
-                _miniGameSpot[_stage].transform.GetChild(0).gameObject.SetActive(false);
+                _gameManager.GetComponent<GameManager>()._hasToKill += _miniGameSpot[_stage].transform.GetChild(0).GetComponent<MiniGameSpotScript>()._hasToKillNum;
                 _miniGameGate[_stage].transform.GetChild(0).gameObject.SetActive(false);
 
             }
@@ -74,7 +74,7 @@ public class AvoidPoopCanvasScript : MonoBehaviour
                 
                 DataController.Instance.gameData._isLeft[_stage - 1].set_gameSpotOnRight();
 
-                _miniGameSpot[_stage].transform.GetChild(1).gameObject.SetActive(false);
+                _gameManager.GetComponent<GameManager>()._hasToKill += _miniGameSpot[_stage].transform.GetChild(1).GetComponent<MiniGameSpotScript>()._hasToKillNum;
                 _miniGameGate[_stage].transform.GetChild(1).gameObject.SetActive(false);
             }
         }
@@ -84,7 +84,7 @@ public class AvoidPoopCanvasScript : MonoBehaviour
             _enemySpawners[_stage].SetActive(true);
             _enemySpawners[_stage].GetComponent<EnemySpawner>().ReduceSetting(FallScoreScript.CountScore);
 
-            _miniGameSpot[_stage].SetActive(false);
+            _gameManager.GetComponent<GameManager>()._hasToKill += _miniGameSpot[_stage].GetComponent<MiniGameSpotScript>()._hasToKillNum;
             _miniGameGate[_stage].SetActive(false);
         }
 

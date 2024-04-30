@@ -59,6 +59,7 @@ public class GameData
     public List<bool> _fieldGateOpen;
     public List<bool> _miniGameIsCleared;
     public List<GateOn> _isLeft = new List<GateOn>();
+    public bool _openLeftGate, _openRightGate;
 
     public GameData()
     {

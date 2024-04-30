@@ -33,12 +33,13 @@ public class Enemy : MonoBehaviour
     public float _sightRange;
 
     GameObject _player;
-    float _attackTimer = 0f, _attackWaitingTime = 0.7f;
 
     //바라보는 방향
     public bool _lookRight;
 
     Vector2 _movement;
+
+    Coroutine _attackCoroutine;
 
     void Awake()
     {
@@ -62,6 +63,11 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        //플레이어 방향으로 단위 벡터
+        Vector2 direction = _player.transform.position - _sightCircle.position;
+        direction.Normalize();
+        _movement = direction;
+
         float dis = Vector2.Distance(_sightCircle.position, _player.transform.position);
 
         //플레이어와의 거리가 시야 범위에 포함되고, 적과 플레이어가 살아 있을 경우
@@ -72,18 +78,9 @@ public class Enemy : MonoBehaviour
         }
         else
         {
-            _attackTimer = 0f;
             _rig2D.velocity = new Vector2(0, 0);
             animator.SetInteger("AniState", 0);
         }
-    }
-
-    private void Update()
-    {
-        //플레이어 방향으로 단위 벡터
-        Vector2 direction = _player.transform.position - _sightCircle.position;
-        direction.Normalize();
-        _movement = direction;
     }
 
     //공격
@@ -101,27 +98,15 @@ public class Enemy : MonoBehaviour
 
         if(find_player)
         {
-            //현재 동작하는 애니매이션이 공격중이 아니라면 공격 애니매이션 시작
-            if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Attack"))
-            {
-                _attackTimer = 0f;
-                animator.SetTrigger("Attack");
-                animator.SetInteger("AniState", 2);
-            }
-
-            _attackTimer += Time.deltaTime;
-            //데미지 쿨타임
-            if (_attackTimer >= _attackWaitingTime)
-            {
-                _attackTimer = 0f;
-                _player.GetComponent<Character>().TakeDamage(Damage);
-            }
+            if (_attackCoroutine == null) _attackCoroutine = StartCoroutine(AttackCoroutine(0.7f));
         }
         else MoveCharacter(_movement);
     }
 
     void MoveCharacter(Vector2 direction)
     {
+        StopAttackCoroutine();
+
         //달리기 애니메이션
         animator.SetInteger("AniState", 1);
         animator.SetTrigger("Run");
@@ -145,6 +130,7 @@ public class Enemy : MonoBehaviour
     {
         if (HP <= 0)
         {
+            StopAttackCoroutine();
             animator.SetBool("IsDead", true);
             
             HPBar.SetActive(false);
@@ -205,6 +191,26 @@ public class Enemy : MonoBehaviour
     {
         if (_lookRight) transform.rotation = Quaternion.Euler(new Vector3(0, rot));
         else transform.rotation = Quaternion.Euler(new Vector3(0, rot - 180));
+    }
+
+    void StopAttackCoroutine()
+    {
+        if (_attackCoroutine == null) return;
+
+        StopCoroutine(_attackCoroutine);
+        _attackCoroutine = null;
+    }
+
+    IEnumerator AttackCoroutine(float time)
+    {
+        animator.SetTrigger("Attack");
+        animator.SetInteger("AniState", 2);
+
+        while (true)
+        {
+            yield return new WaitForSeconds(time);
+            _player.GetComponent<Character>().TakeDamage(Damage);
+        }
     }
 
     //공격범위를 보이게 함

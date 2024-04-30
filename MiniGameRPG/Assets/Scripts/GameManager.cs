@@ -17,7 +17,6 @@ public class GameManager : MonoBehaviour
     GameObject _buttonCanvas;
 
     public List<GateOn> _isLeft;
-    public bool _openLeftGate, _openRightGate;
 
     public void LoadEnemy(int num)
     {
@@ -76,10 +75,10 @@ public class GameManager : MonoBehaviour
         {
             if (DataController.Instance.gameData._fieldGateOpen[i])
             {
-                if (i != 0 && _miniGameGate[i].transform.childCount > 0)
+                if (i == 2)
                 {
-                    if (_isLeft[i - 1].get_gateOnLeft()) _miniGameGate[i].transform.GetChild(0).gameObject.SetActive(false);
-                    if (_isLeft[i - 1].get_gateOnRight()) _miniGameGate[i].transform.GetChild(1).gameObject.SetActive(false);
+                    if (_isLeft[1].get_gateOnLeft()) _miniGameGate[i].transform.GetChild(0).gameObject.SetActive(false);
+                    if (_isLeft[1].get_gateOnRight()) _miniGameGate[i].transform.GetChild(1).gameObject.SetActive(false);
                 }
                 else _miniGameGate[i].SetActive(false);
             }
@@ -95,12 +94,12 @@ public class GameManager : MonoBehaviour
  
             if(_stage == 1)
             {
-                if (_openLeftGate)
+                if (DataController.Instance.gameData._openLeftGate)
                 {
                     _miniGameGate[_stage + 1].transform.GetChild(0).gameObject.SetActive(false);
                     DataController.Instance.gameData._isLeft[1].set_gateOnLeft();
                 }
-                else if (_openRightGate)
+                else if (DataController.Instance.gameData._openRightGate)
                 {
                     _miniGameGate[_stage + 1].transform.GetChild(1).gameObject.SetActive(false);
                     DataController.Instance.gameData._isLeft[1].set_gateOnRight();
@@ -108,12 +107,6 @@ public class GameManager : MonoBehaviour
             }
             else
             {
-                if(_stage == 0)
-                {
-                    DataController.Instance.gameData._isLeft[0].set_gateOnLeft();
-                    DataController.Instance.gameData._isLeft[0].set_gateOnRight();
-                }
-
                 _miniGameGate[_stage + 1].SetActive(false);
             }
 

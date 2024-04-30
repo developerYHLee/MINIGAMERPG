@@ -7,7 +7,7 @@ public class MiniGameSpotScript : MonoBehaviour
     public GameObject _avoidPoopManual, _avoidPoopCanvas, _gameManager;
     public int _stage, _hasToKillNum;
     GameObject _player;
-    public bool _isLeft, _isRight;
+    public bool _isLeft;
 
     private void Start()
     {
@@ -27,17 +27,16 @@ public class MiniGameSpotScript : MonoBehaviour
         FallScoreScript.CountScore = 0;
         FallPotionScript.CountPotion = 0;
 
-        //게임 메니저에 죽여야 하는 적 수 전달
-        _gameManager.GetComponent<GameManager>()._hasToKill += _hasToKillNum;
-
         //스테이지 전달
         _avoidPoopCanvas.GetComponent<AvoidPoopCanvasScript>()._stage = _stage;
         _avoidPoopCanvas.GetComponent<AvoidPoopCanvasScript>()._isLeft = _isLeft;
 
         if (_stage == 1)
         {
-            if (_isLeft) _gameManager.GetComponent<GameManager>()._openLeftGate = true;
-            if(_isRight) _gameManager.GetComponent<GameManager>()._openRightGate = true;
+            if (_isLeft) DataController.Instance.gameData._openLeftGate = true;
+            else DataController.Instance.gameData._openRightGate = true;
         }
+
+        gameObject.SetActive(false);
     }
 }

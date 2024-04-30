@@ -8311,8 +8311,6 @@ MonoBehaviour:
   _hasToKill: 0
   _stage: 0
   _isLeft: []
-  _openLeftGate: 0
-  _openRightGate: 0
 --- !u!4 &289706654
 Transform:
   m_ObjectHideFlags: 0
